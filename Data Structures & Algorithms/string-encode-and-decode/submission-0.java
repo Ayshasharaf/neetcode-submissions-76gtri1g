@@ -1,33 +1,38 @@
 class Solution {
 
     public String encode(List<String> strs) {
-        StringBuilder encoded = new  StringBuilder();
-        for( String str : strs){
-            encoded.append(str.length()).append("#").append(str);
-        }
-        return encoded.toString();
+        StringBuilder encoded = new StringBuilder();
 
+        for (String s : strs) {
+            encoded.append(s.length()).append("#").append(s);
+        }
+
+        return encoded.toString();
     }
 
-    public List<String> decode(String s) {
-        ArrayList<String> result = new ArrayList<>();
+    public List<String> decode(String str) {
+        List<String> result = new ArrayList<>();
         int i = 0;
-        while(i < s.length()){
+
+        while (i < str.length()) {
+
             int j = i;
-            while (s.charAt(j) != '#'){
+
+            // find #
+            while (str.charAt(j) != '#') {
                 j++;
             }
-            String number = s.substring(i, j);
-            int length = Integer.parseInt(number);
 
-            int start = j + 1;
-            int end = start + length;
-            String word = s.substring(start, end);
+            int length = Integer.parseInt(str.substring(i, j));
 
+            j++; // move past #
+
+            String word = str.substring(j, j + length);
             result.add(word);
-            i = end;
-        }
-        return result;
 
+            i = j + length;
+        }
+
+        return result;
     }
 }

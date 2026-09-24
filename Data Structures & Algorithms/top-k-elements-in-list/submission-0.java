@@ -1,18 +1,23 @@
 class Solution {
     public int[] topKFrequent(int[] nums, int k) {
-        HashMap<Integer,Integer> frq = new HashMap<>();
-        
+        // Step 1: Count frequency of each number
+        Map<Integer, Integer> countMap = new HashMap<>();
         for (int num : nums) {
-        frq.put(num, frq.getOrDefault(num, 0) + 1);
+            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
         }
-        
-        ArrayList<Integer> keys= new ArrayList<>(frq.keySet());
-        keys.sort((a,b) -> frq.get(b) - frq.get(a));
+
+        // Step 2: Make a list of unique numbers
+        List<Integer> keys = new ArrayList<>(countMap.keySet());
+
+        // Step 3: Sort the numbers by their frequency (most frequent first)
+        keys.sort((a, b) -> countMap.get(b) - countMap.get(a));
+
+        // Step 4: Pick the first k numbers
         int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             result[i] = keys.get(i);
-        }return result; 
+        }
+
+        return result;
     }
 }
-        
-
